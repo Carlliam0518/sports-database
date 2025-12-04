@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball DB - Administrator</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- CSS State Management (Hidden Radio Buttons) -->
+    <input type="radio" name="tab-control" id="tab-team" checked>
+    <input type="radio" name="tab-control" id="tab-player">
+    <input type="radio" name="tab-control" id="tab-coach">
+    <input type="radio" name="tab-control" id="tab-game">
+    <input type="radio" name="tab-control" id="tab-referee">
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-area">
+                <div class="logo-circle">UST</div>
+                <div class="logo-text">CICS Tigers</div>
+                <div class="logo-sub">Database System</div>
+            </div>
+            
+            <div class="nav-buttons">
+                <!-- Navigation Labels (Act as Tab Switchers) -->
+                <label class="nav-btn" for="tab-team">
+                    <i class="fa-solid fa-users"></i> Teams
+                </label>
+                <label class="nav-btn" for="tab-player">
+                    <i class="fa-solid fa-basketball"></i> Players
+                </label>
+                <label class="nav-btn" for="tab-coach">
+                    <i class="fa-solid fa-user-tie"></i> Coaches
+                </label>
+                <label class="nav-btn" for="tab-game">
+                    <i class="fa-solid fa-trophy"></i> Games
+                </label>
+                <label class="nav-btn" for="tab-referee">
+                    <i class="fa-solid fa-flag"></i> Referees
+                </label>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- TEAM TAB -->
+            <div id="view-team" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <!-- Add Button triggers Modal via CSS Target -->
+                        <a href="#teamModal" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Team
+                        </a>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Teams...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+
+                <div class="table-container">
+                    <h3>Teams Directory</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Team ID</th>
+                                <th>Team Name</th>
+                                <th>Head Coach</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through teams here -->
+                            <!-- Example Row Structure:
+                            <tr>
+                                <td><?php echo $team_id; ?></td>
+                                <td><strong><?php echo $team_name; ?></strong></td>
+                                <td><?php echo $coach_name; ?></td>
+                                <td>
+                                    <a href="#rosterModal" class="btn-secondary">
+                                        <i class="fa-solid fa-list"></i> View Roster
+                                    </a>
+                                </td>
+                            </tr>
+                            -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PLAYER TAB -->
+            <div id="view-player" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <a href="#playerModal" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Player
+                        </a>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Players...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>All Players</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Player Name</th>
+                                <th>Pos</th>
+                                <th>#</th>
+                                <th>Height/Weight</th>
+                                <th>Team</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through players here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- COACH TAB -->
+            <div id="view-coach" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <a href="#coachModal" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Coach
+                        </a>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Coaches...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>Coaches Directory</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Experience (Yrs)</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through coaches here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- GAME TAB -->
+            <div id="view-game" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <a href="#gameModal" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Game
+                        </a>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Games...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="games-scroll-container">
+                    <!-- PHP: Loop through games here and generate .game-card divs -->
+                    <!-- Example Card Structure:
+                    <div class="game-card">
+                        <div class="game-info-section">
+                            <div class="game-matchup">
+                                ... Team A, Score, Team B logic ...
+                            </div>
+                        </div>
+                    </div> 
+                    -->
+                </div>
+            </div>
+
+            <!-- REFEREE TAB -->
+            <div id="view-referee" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <a href="#refereeModal" class="btn-primary">
+                            <i class="fa-solid fa-plus"></i> Add Referee
+                        </a>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Referees...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>Referees Directory</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Years of Experience</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through referees here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- MODALS (Triggered via CSS :target) -->
+
+    <!-- Add Team Modal -->
+    <div id="teamModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Add New Team</h2>
+            <div class="modal-body">
+                <form action="add_team.php" method="POST">
+                    <div class="form-group">
+                        <label>Team ID</label>
+                        <input type="text" name="team_id" placeholder="e.g. T0003">
+                    </div>
+                    <div class="form-group">
+                        <label>Team Name</label>
+                        <input type="text" name="team_name" placeholder="e.g. Warriors">
+                    </div>
+                    <div class="form-group">
+                        <label>Head Coach ID</label>
+                        <input type="text" name="coach_id" placeholder="e.g. C0003">
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Save Team</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Player Modal -->
+    <div id="playerModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Add New Player</h2>
+            <div class="modal-body">
+                <form action="add_player.php" method="POST">
+                    <div class="form-group">
+                        <label>Player ID</label>
+                        <input type="text" name="player_id" placeholder="e.g. P0007">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="lname" placeholder="Last Name">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" name="age" placeholder="Age">
+                        <input type="number" name="number" placeholder="Jersey #">
+                    </div>
+                    <div class="form-row">
+                        <input type="number" name="height" placeholder="Height (cm)">
+                        <input type="number" name="weight" placeholder="Weight (lbs)">
+                    </div>
+                    <div class="form-group">
+                        <label>Position</label>
+                        <select name="position">
+                            <option value="PG">PG</option>
+                            <option value="SG">SG</option>
+                            <option value="SF">SF</option>
+                            <option value="PF">PF</option>
+                            <option value="C">C</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Team ID</label>
+                        <input type="text" name="team_id" placeholder="e.g. T0001">
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Save Player</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Add Coach Modal -->
+    <div id="coachModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Add New Coach</h2>
+            <div class="modal-body">
+                <form action="add_coach.php" method="POST">
+                    <div class="form-group">
+                        <label>Coach ID</label>
+                        <input type="text" name="coach_id" placeholder="e.g. C0003">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="lname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Experience (Years)</label>
+                        <input type="number" name="experience" placeholder="e.g. 5">
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Save Coach</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+     <!-- Add Game Modal -->
+    <div id="gameModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Add New Game</h2>
+            <div class="modal-body">
+                 <form action="add_game.php" method="POST">
+                    <div class="form-group">
+                        <label>Game ID</label>
+                        <input type="text" name="game_id" placeholder="e.g. G0003">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="team_a_id" placeholder="Team A ID">
+                        <input type="text" name="team_b_id" placeholder="Team B ID">
+                    </div>
+                    <!-- Add more inputs for score/date as needed -->
+                    <button type="submit" class="btn-primary full-width">Save Game</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Referee Modal -->
+    <div id="refereeModal" class="modal">
+        <div class="modal-content">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Add New Referee</h2>
+            <div class="modal-body">
+                <form action="add_referee.php" method="POST">
+                    <div class="form-group">
+                        <label>Referee ID</label>
+                        <input type="text" name="referee_id" placeholder="e.g. R0003">
+                    </div>
+                    <div class="form-row">
+                        <input type="text" name="fname" placeholder="First Name">
+                        <input type="text" name="lname" placeholder="Last Name">
+                    </div>
+                    <div class="form-group">
+                        <label>Years of Experience</label>
+                        <input type="number" name="experience" placeholder="e.g. 5">
+                    </div>
+                    <button type="submit" class="btn-primary full-width">Save Referee</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Roster Modal -->
+    <div id="rosterModal" class="modal">
+        <div class="modal-content large">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Team Roster</h2>
+            <div class="modal-body">
+                <table>
+                    <thead>
+                        <tr><th>Player Name</th><th>Pos</th><th>#</th><th>Stats</th></tr>
+                    </thead>
+                    <tbody>
+                        <!-- PHP: Loop through roster data here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

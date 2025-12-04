@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Basketball DB - User View</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+    <!-- CSS State Management -->
+    <!-- Set game to checked by default for user view per previous request -->
+    <input type="radio" name="tab-control" id="tab-team">
+    <input type="radio" name="tab-control" id="tab-player">
+    <input type="radio" name="tab-control" id="tab-coach">
+    <input type="radio" name="tab-control" id="tab-game" checked>
+    <input type="radio" name="tab-control" id="tab-referee">
+
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <nav class="sidebar">
+            <div class="logo-area">
+                <div class="logo-circle">UST</div>
+                <div class="logo-text">CICS Tigers</div>
+                <div class="logo-sub">Database System</div>
+            </div>
+            
+            <div class="nav-buttons">
+                <label class="nav-btn" for="tab-team">
+                    <i class="fa-solid fa-users"></i> Teams
+                </label>
+                <label class="nav-btn" for="tab-player">
+                    <i class="fa-solid fa-basketball"></i> Players
+                </label>
+                <label class="nav-btn" for="tab-coach">
+                    <i class="fa-solid fa-user-tie"></i> Coaches
+                </label>
+                <label class="nav-btn" for="tab-game">
+                    <i class="fa-solid fa-trophy"></i> Games
+                </label>
+                <label class="nav-btn" for="tab-referee">
+                    <i class="fa-solid fa-flag"></i> Referees
+                </label>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            
+            <!-- TEAM TAB -->
+            <div id="view-team" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left">
+                        <span class="hint-text">View Only Mode</span>
+                    </div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Teams...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>Teams Directory</h3>
+                    <table>
+                        <thead>
+                            <tr><th>Team ID</th><th>Team Name</th><th>Head Coach</th><th>Actions</th></tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through teams here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- PLAYER TAB -->
+            <div id="view-player" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left"><span class="hint-text">View Only Mode</span></div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Players...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>All Players</h3>
+                    <table>
+                        <thead>
+                            <tr><th>ID</th><th>Player Name</th><th>Pos</th><th>#</th><th>Height/Weight</th><th>Team</th></tr>
+                        </thead>
+                        <tbody>
+                            <!-- PHP: Loop through players here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- COACH TAB -->
+            <div id="view-coach" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left"><span class="hint-text">View Only Mode</span></div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Coaches...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>Coaches Directory</h3>
+                    <table>
+                        <thead><tr><th>ID</th><th>Name</th><th>Experience (Yrs)</th></tr></thead>
+                        <tbody>
+                            <!-- PHP: Loop through coaches here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- GAME TAB -->
+            <div id="view-game" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left"><span class="hint-text">Live Game Results</span></div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Games...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                
+                <div class="games-scroll-container">
+                    <!-- PHP: Loop through games here -->
+                </div>
+            </div>
+
+            <!-- REFEREE TAB -->
+            <div id="view-referee" class="tab-view">
+                <header class="toolbar">
+                    <div class="toolbar-left"><span class="hint-text">Referees Directory</span></div>
+                    <div class="toolbar-right">
+                        <div class="search-box">
+                            <input type="text" placeholder="Filter Referees...">
+                            <i class="fa-solid fa-filter" style="color: #999;"></i>
+                        </div>
+                    </div>
+                </header>
+                <div class="table-container">
+                    <h3>Referees Directory</h3>
+                    <table>
+                        <thead><tr><th>ID</th><th>Name</th><th>Years of Experience</th></tr></thead>
+                        <tbody>
+                            <!-- PHP: Loop through referees here -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Roster Modal -->
+    <div id="rosterModal" class="modal">
+        <div class="modal-content large">
+            <a href="#" class="close-btn">&times;</a>
+            <h2>Team Roster</h2>
+            <div class="modal-body">
+                <table>
+                    <thead><tr><th>Player Name</th><th>Pos</th><th>#</th><th>Stats</th></tr></thead>
+                    <tbody>
+                        <!-- PHP: Loop through roster data here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

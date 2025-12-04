@@ -29,7 +29,44 @@ body {
     color: var(--text-dark);
 }
 
-/* Layout Container */
+/* --- NO-JS LOGIC HELPERS --- */
+
+/* Hide the radio inputs governing tab state */
+input[name="tab-control"] {
+    display: none;
+}
+
+/* Default State: Hide all tab views */
+.tab-view {
+    display: none;
+    flex-direction: column;
+    height: 100%;
+}
+
+/* Logic: Show specific tab content when specific radio is checked */
+#tab-team:checked ~ .dashboard-container .main-content #view-team,
+#tab-player:checked ~ .dashboard-container .main-content #view-player,
+#tab-coach:checked ~ .dashboard-container .main-content #view-coach,
+#tab-game:checked ~ .dashboard-container .main-content #view-game,
+#tab-referee:checked ~ .dashboard-container .main-content #view-referee {
+    display: flex;
+}
+
+/* Logic: Highlight active Sidebar Button */
+#tab-team:checked ~ .dashboard-container .sidebar .nav-buttons label[for="tab-team"],
+#tab-player:checked ~ .dashboard-container .sidebar .nav-buttons label[for="tab-player"],
+#tab-coach:checked ~ .dashboard-container .sidebar .nav-buttons label[for="tab-coach"],
+#tab-game:checked ~ .dashboard-container .sidebar .nav-buttons label[for="tab-game"],
+#tab-referee:checked ~ .dashboard-container .sidebar .nav-buttons label[for="tab-referee"] {
+    background-color: var(--ust-gold);
+    color: var(--ust-black);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    font-weight: 800;
+    border-left: 4px solid #fff; /* visual indicator */
+}
+
+/* --- LAYOUT --- */
+
 .dashboard-container {
     display: flex;
     height: 100%;
@@ -97,6 +134,7 @@ body {
     padding: 0 10px;
 }
 
+/* Changed .nav-btn to label for interactions */
 .nav-btn {
     background: transparent;
     border: none;
@@ -114,18 +152,12 @@ body {
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    border-left: 4px solid transparent;
 }
 
 .nav-btn:hover {
     background-color: var(--ust-grey);
     color: var(--ust-gold);
-}
-
-.nav-btn.active {
-    background-color: var(--ust-gold);
-    color: var(--ust-black);
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    font-weight: 800;
 }
 
 /* Main Content Area */
@@ -136,17 +168,6 @@ body {
     padding: 20px;
     position: relative;
     overflow: hidden;
-}
-
-/* Tab Views */
-.tab-view {
-    display: none;
-    flex-direction: column;
-    height: 100%;
-}
-
-.tab-view.active-view {
-    display: flex;
 }
 
 /* Toolbar */
@@ -174,7 +195,7 @@ body {
     font-style: italic;
 }
 
-/* Buttons */
+/* Buttons - Modified to be <a> tags for Modals */
 .btn-primary {
     background-color: var(--ust-black);
     color: var(--ust-gold);
@@ -190,6 +211,7 @@ body {
     align-items: center;
     gap: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    text-decoration: none; /* For <a> tag */
 }
 
 .btn-primary:hover {
@@ -208,6 +230,10 @@ body {
     font-size: 0.85rem;
     font-weight: 700;
     text-transform: uppercase;
+    text-decoration: none; /* For <a> tag */
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .btn-secondary:hover {
@@ -294,8 +320,7 @@ tr:hover {
     background-color: #fff9db; 
 }
 
-/* --- UPDATED HORIZONTAL GAME CARD STYLES --- */
-
+/* --- GAME CARD STYLES --- */
 .games-scroll-container {
     flex: 1;
     overflow-y: auto;
@@ -328,24 +353,22 @@ tr:hover {
     justify-content: center;
 }
 
-/* Enforce Horizontal Layout */
 .game-matchup {
     display: flex;
-    flex-direction: row; /* Forces horizontal */
+    flex-direction: row; 
     justify-content: space-between;
-    align-items: center; /* Vertically center items */
+    align-items: center; 
     width: 100%;
     gap: 20px;
 }
 
-/* Team Columns (Logo + Name + Record) */
 .team-display {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     text-align: center;
-    flex: 1; /* Take up equal space */
+    flex: 1;
 }
 
 .team-logo-placeholder {
@@ -379,13 +402,12 @@ tr:hover {
     font-weight: 600;
 }
 
-/* Middle Score Section */
 .game-score-display {
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 30px;
-    flex: 1.5; /* Give slightly more space to score area */
+    flex: 1.5; 
 }
 
 .score-number {
@@ -413,7 +435,6 @@ tr:hover {
     display: inline-block;
 }
 
-/* Winner Indicator Style */
 .winner-badge {
     margin-top: 8px;
     font-size: 0.8rem;
@@ -431,14 +452,15 @@ tr:hover {
 .loser-text {
     margin-top: 8px;
     font-size: 0.8rem;
-    color: transparent; /* Occupy space but invisible */
+    color: transparent; 
     padding: 5px 15px;
     border: 1px solid transparent;
 }
 
-/* Modal Styles */
+/* --- NO-JS MODAL LOGIC --- */
+
 .modal {
-    display: none;
+    display: none; /* Hidden by default */
     position: fixed;
     z-index: 1000;
     left: 0;
@@ -449,6 +471,16 @@ tr:hover {
     justify-content: center;
     align-items: center;
     backdrop-filter: blur(2px);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* When the modal ID is the URL target, show it */
+.modal:target {
+    display: flex;
+    opacity: 1;
+    pointer-events: auto;
 }
 
 .modal-content {
@@ -472,9 +504,10 @@ tr:hover {
     top: 15px;
     right: 20px;
     font-size: 24px;
-    cursor: pointer;
+    text-decoration: none; /* For <a> tag */
     color: white;
     z-index: 2;
+    font-weight: bold;
 }
 
 .close-btn:hover { color: var(--ust-gold); }
@@ -515,12 +548,6 @@ input:focus, select:focus {
 }
 
 .full-width { width: 100%; margin-top: 10px; justify-content: center;}
-
-.empty-state {
-    text-align: center;
-    padding: 40px;
-    color: #95a5a6;
-}
 
 /* Badges */
 .badge {
