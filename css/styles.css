@@ -564,3 +564,72 @@ input:focus, select:focus {
 .sf { background: #333; border-bottom: 2px solid var(--ust-gold); }
 .pf { background: #333; border-bottom: 2px solid var(--ust-gold); }
 .c  { background: #333; border-bottom: 2px solid var(--ust-gold); }
+
+/* --- ACTION MENU (DROPDOWN) STYLES --- */
+.action-cell {
+    text-align: center;
+    width: 100px;
+    overflow: visible; 
+}
+
+.action-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.action-btn {
+    background: transparent;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #333;
+    padding: 5px;
+}
+
+.action-btn:hover {
+    color: #FFC107; /* UST Gold */
+}
+
+/* Dropdown Content (Hidden by Default) */
+.action-content {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: white;
+    min-width: 150px;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    z-index: 999;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: left;
+}
+
+/* Show the dropdown menu on hover */
+.action-dropdown:hover .action-content {
+    display: block;
+}
+
+/* Links inside the dropdown */
+.action-content a {
+    color: #212529;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: background 0.2s;
+}
+
+.action-content a:hover {
+    background-color: #f1f1f1;
+    color: #111;
+}
+
+.action-content a.delete-item {
+    color: #d63031;
+    border-top: 1px solid #eee;
+}
+
+.action-content a.delete-item:hover {
+    background-color: #ffeaea;
+}
